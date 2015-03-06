@@ -7,14 +7,14 @@ var logger = container.logger;
 var server = vertx.createHttpServer();
 var bus = vertx.eventBus;
 
-container.deployVerticle('ratings.rb');
+container.deployWorkerVerticle('ratings.rb');
 
 //bus.send("mystack", "setup");
 
 var routeMatcher = new vertx.RouteMatcher();
 
 routeMatcher.get('/ratings', function (req) {
-    console.log("list ratings");
+    console.log("listing ratings");
     bus.send('ratings', // Event bus
         { action: 'list' },
         function (reply) {
