@@ -8,11 +8,13 @@ var server = vertx.createHttpServer();
 var bus = vertx.eventBus;
 
 container.deployWorkerVerticle('ratings.rb');
+container.deployWorkerVerticle('manage_restaurants.rb');
 
 //bus.send("mystack", "setup");
 
 var routeMatcher = new vertx.RouteMatcher();
 
+// curl localhost:8080/ratings
 routeMatcher.get('/ratings', function (req) {
     console.log("listing ratings");
     bus.send('ratings', // Event bus
@@ -26,6 +28,7 @@ routeMatcher.get('/ratings', function (req) {
 
 });
 
+// curl --data-urlencode "name=Thai Green and Sushi" -XPOST localhost:8080/restaurant
 routeMatcher.post('/restaurant', function (req) {
     console.log("Params: " + req.params());
 
@@ -59,6 +62,7 @@ routeMatcher.post('/restaurant', function (req) {
 
 });
 
+// curl -XPUT localhost:8080/ratings/2/5
 routeMatcher.put('/ratings/:id/:rating', function (req) {
     var id = req.params().get('id');
     var rating = req.params().get('rating');
@@ -69,10 +73,11 @@ routeMatcher.put('/ratings/:id/:rating', function (req) {
             rating: rating
         },
         function (reply) {
-            console("Reply" + reply);
+            console.log("Reply" + reply);
         }
     );
     req.response.end('Updating...' + id + " with " + rating);
 });
 
+// Start a server listening to our routes
 server.requestHandler(routeMatcher).listen(8080, 'localhost');
