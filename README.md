@@ -1,6 +1,7 @@
 # Vert.x Example Maven Project
 
 Demo Vert.x server using JavaScript for UI and Ruby for app and access logic.
+See my blog post:  https://www.blogger.com/blogger.g?blogID=11696452#editor/target=post;postID=8716957410259649405;onPublishedMenu=allposts;onClosedMenu=allposts;postNum=0;src=postname
 
 ## Setup
 First you will need Vert.x:  http://vertx.io/install.html
