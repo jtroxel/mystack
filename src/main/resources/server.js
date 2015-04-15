@@ -20,7 +20,7 @@ routeMatcher.get('/ratings', function (req) {
     bus.send('ratings', // Event bus
         { action: 'list' },
         function (reply) {
-            logger.info("Reply from bus " + reply);
+            logger.info("Reply from bus " + reply + '\n');
             req.response.end(reply);
         }
     )
@@ -36,7 +36,7 @@ routeMatcher.post('/restaurant', function (req) {
 
     req.expectMultiPart(true);
     req.endHandler(function() {
-//        The request has been all ready so now we can look at the form attributes
+//        The request has been read already so now we can look at the form attributes
 
         var formAttributes = req.formAttributes();
 //        formAttributes.forEach(function(key, value) {
@@ -56,7 +56,7 @@ routeMatcher.post('/restaurant', function (req) {
                 console.log("Reply " + reply);
             }
         );
-        req.response.end('Adding');
+        req.response.end('Adding\n');
     });
 
 
@@ -73,7 +73,7 @@ routeMatcher.put('/ratings/:id/:rating', function (req) {
             rating: rating
         },
         function (reply) {
-            console.log("Reply" + reply);
+            console.log("Reply" + reply + '\n');
         }
     );
     req.response.end('Updating...' + id + " with " + rating);

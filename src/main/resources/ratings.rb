@@ -1,6 +1,8 @@
 require 'init'
+require 'restaurant'
 
 puts "Ratings Verticle"
+p Restaurant.all.as_json.to_s
 
 Vertx::EventBus.register_handler('ratings') do |message|
   body = message.body
